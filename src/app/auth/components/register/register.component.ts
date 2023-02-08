@@ -1,3 +1,4 @@
+import {RegisterRequestInterface} from './../../types/registerRequest.interface'
 import {CurrentUserInterface} from './../../../shared/types/currentUser.interface'
 import {AuthService} from './../../services/auth.service'
 import {registerAction} from '../../store/actions/register.action'
@@ -52,11 +53,14 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit(): void {
     console.log(this.form.value)
-    this.store.dispatch(registerAction(this.form.value))
-    this.authService
-      .register(this.form.value)
-      .subscribe((currentUser: CurrentUserInterface) => {
-        console.log('currentUser', currentUser)
-      })
+    const request: RegisterRequestInterface = {
+      user: this.form.value,
+    }
+    this.store.dispatch(registerAction({request}))
+    // this.authService
+    //   .register(this.form.value)
+    //   .subscribe((currentUser: CurrentUserInterface) => {
+    //     console.log('currentUser', currentUser)
+    //   })
   }
 }

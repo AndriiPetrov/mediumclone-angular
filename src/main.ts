@@ -10,6 +10,8 @@ import {provideStoreDevtools} from '@ngrx/store-devtools'
 import {authFeatureKey, authReducer} from './app/auth/store/reducers'
 import {appRoutes} from './app/app-routes'
 import {provideHttpClient} from '@angular/common/http'
+import {provideEffects} from '@ngrx/effects'
+import {RegisterEffects} from './app/auth/store/effects/register.effects'
 
 // platformBrowserDynamic()
 //   .bootstrapModule(AppModule)
@@ -20,6 +22,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(appRoutes),
     provideStore(),
     provideState(authFeatureKey, authReducer),
+    // provideEffects(RegisterEffects),
     provideHttpClient(),
     provideStoreDevtools({
       maxAge: 25,
