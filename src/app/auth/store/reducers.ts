@@ -31,7 +31,7 @@ export const authReducer = createReducer(
       validationErrors: null,
     })
   ),
-  on(registerSuccessAction, (state, { currentUser }) => {
+  on(registerSuccessAction, loginSuccessAction, (state, { currentUser }) => {
     return {
       ...state,
       currentUser: currentUser,
@@ -47,34 +47,33 @@ export const authReducer = createReducer(
   //     isSubmitting: false,
   //   }
   // }),
-  on(registerFailureAction, (state, { errors }) => {
+  on(registerFailureAction, loginFailureAction, (state, { errors }) => {
     return {
       ...state,
       isSubmitting: false,
       validationErrors: errors,
     };
-  }),
-  on(loginAction, (state): AuthStateInterface => {
-    return {
-      ...state,
-      isSubmitting: true,
-      validationErrors: null,
-    };
-  }),
-  on(
-    loginSuccessAction,
-    (state, action): AuthStateInterface => ({
-      ...state,
-      isSubmitting: false,
-      currentUser: action.currentUser,
-      isLoggedIn: true,
-    })
-  ),
-  on(loginFailureAction, (state, action) => {
-    return {
-      ...state,
-      isSubmitting: false,
-      validationErrors: action.errors,
-    };
   })
+  // on(loginAction, (state): AuthStateInterface => {
+  //   return {
+  //     ...state,
+  //     isSubmitting: true,
+  //     validationErrors: null,
+  //   };
+  // }),
+  // on(loginSuccessAction, (state, action): AuthStateInterface => {
+  //   return {
+  //     ...state,
+  //     currentUser: action.currentUser,
+  //     isLoggedIn: true,
+  //     isSubmitting: false,
+  //   };
+  // }),
+  // on(loginFailureAction, (state, action) => {
+  //   return {
+  //     ...state,
+  //     isSubmitting: false,
+  //     validationErrors: action.errors,
+  //   };
+  // })
 );
