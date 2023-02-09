@@ -1,6 +1,6 @@
-import {CommonModule} from '@angular/common'
-import {RouterModule, RouterOutlet} from '@angular/router'
-import {Component} from '@angular/core'
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'medium-root',
@@ -10,5 +10,5 @@ import {Component} from '@angular/core'
   imports: [CommonModule, RouterOutlet],
 })
 export class AppComponent {
-  title = 'mediumclone-angular'
+  title = 'mediumclone-angular';
 }

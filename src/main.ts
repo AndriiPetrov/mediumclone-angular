@@ -1,17 +1,17 @@
 // import {platformBrowserDynamic} from '@angular/platform-browser-dynamic'
 
-import {bootstrapApplication} from '@angular/platform-browser'
-import {AppComponent} from './app/app.component'
-import {provideRouter} from '@angular/router'
-import {isDevMode} from '@angular/core'
-import {provideState, provideStore} from '@ngrx/store'
-import {provideStoreDevtools} from '@ngrx/store-devtools'
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { isDevMode } from '@angular/core';
+import { provideState, provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import {authFeatureKey, authReducer} from './app/auth/store/reducers'
-import {appRoutes} from './app/app-routes'
-import {provideHttpClient} from '@angular/common/http'
-import {provideEffects} from '@ngrx/effects'
-import {RegisterEffects} from './app/auth/store/effects/register.effects'
+import { authFeatureKey, authReducer } from './app/auth/store/reducers';
+import { appRoutes } from './app/app-routes';
+import { provideHttpClient } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { RegisterEffects } from './app/auth/store/effects/register.effects';
 
 // platformBrowserDynamic()
 //   .bootstrapModule(AppModule)
@@ -32,4 +32,4 @@ bootstrapApplication(AppComponent, {
       // traceLimit: 75,
     }),
   ],
-}).catch((err) => console.error(err))
+}).catch((err) => console.error(err));
