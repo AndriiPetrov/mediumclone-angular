@@ -9,9 +9,17 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { authFeatureKey, authReducer } from './app/auth/store/reducers';
 import { appRoutes } from './app/app-routes';
-import { provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import { RegisterEffects } from './app/auth/store/effects/register.effects';
+import { GetCurrentUserEffects } from './app/auth/store/effects/get-current-user.effects';
+import { authInterceptor } from './app/shared/services/auth-function.interceptor';
+import { AuthInterceptor } from './app/shared/services/auth.interceptor';
 
 // platformBrowserDynamic()
 //   .bootstrapModule(AppModule)
@@ -22,8 +30,16 @@ bootstrapApplication(AppComponent, {
     provideRouter(appRoutes),
     provideStore(),
     provideState(authFeatureKey, authReducer),
-    // provideEffects(RegisterEffects),
-    provideHttpClient(),
+    provideEffects([GetCurrentUserEffects]),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+      // withInterceptorsFromDi()
+    ),
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true,
+    // },
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
