@@ -8,7 +8,7 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { authFeatureKey, authReducer } from './app/auth/store/reducers';
-import { appRoutes } from './app/app-routes';
+import { APP_ROUTES } from './app/app.routes';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
@@ -20,6 +20,11 @@ import { RegisterEffects } from './app/auth/store/effects/register.effects';
 import { GetCurrentUserEffects } from './app/auth/store/effects/get-current-user.effects';
 import { authInterceptor } from './app/shared/services/auth-function.interceptor';
 import { AuthInterceptor } from './app/shared/services/auth.interceptor';
+import {
+  feedReducer,
+  feedReducerFeatureKey,
+} from './app/shared/components/feed/store/reducer';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 
 // platformBrowserDynamic()
 //   .bootstrapModule(AppModule)
@@ -27,8 +32,12 @@ import { AuthInterceptor } from './app/shared/services/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(appRoutes),
-    provideStore(),
+    provideRouter(APP_ROUTES),
+    provideStore({
+      router: routerReducer,
+    }),
+    provideRouterStore(),
+    // provideState(feedReducerFeatureKey, feedReducer),
     provideState(authFeatureKey, authReducer),
     provideEffects([GetCurrentUserEffects]),
     provideHttpClient(
