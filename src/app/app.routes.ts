@@ -12,7 +12,17 @@ import {
   feedReducer,
   feedReducerFeatureKey,
 } from './shared/components/feed/store/reducer';
-import { GlobalFeedComponent } from './global-feed/components/global-feed/global-feed.component';
+import {
+  popularTagsFeatureKey,
+  popularTagsReducer,
+} from './shared/components/popular-tags/reducer';
+import { GetPopularTagsEffects } from './shared/components/popular-tags/effects/get-popular-tags.effects';
+import {
+  articleReducer,
+  getArticleFeatureKey,
+} from './article/store/reducers/get-article.reducer';
+import { GetArticleEffects } from './article/store/effects/get-article.effects';
+import { DeleteArticleEffects } from './article/store/effects/delete.effects';
 
 export const APP_ROUTES: Routes = [
   {
@@ -45,12 +55,36 @@ export const APP_ROUTES: Routes = [
     path: '',
     providers: [
       provideState(feedReducerFeatureKey, feedReducer),
-      provideEffects(GetFeedEffects),
+      provideState(popularTagsFeatureKey, popularTagsReducer),
+      provideState(getArticleFeatureKey, articleReducer),
+      provideEffects(
+        GetFeedEffects,
+        GetPopularTagsEffects,
+        GetArticleEffects,
+        DeleteArticleEffects
+      ),
     ],
     loadChildren: () =>
       import('./global-feed/global-feed.routes').then(
         (m) => m.GLOBAL_FEED_ROUTES
       ),
     // component: GlobalFeedComponent,
+  },
+  {
+    path: 'feed',
+    loadComponent: () =>
+      import('./your-feed/your-feed.component').then(
+        (m) => m.YourFeedComponent
+      ),
+  },
+  {
+    path: 'tags/:slug',
+    loadComponent: () =>
+      import('./tag-feed/tag-feed.component').then((m) => m.TagFeedComponent),
+  },
+  {
+    path: 'articles/:slug',
+    loadComponent: () =>
+      import('./article/article.component').then((m) => m.ArticleComponent),
   },
 ];

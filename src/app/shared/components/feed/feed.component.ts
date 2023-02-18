@@ -1,4 +1,12 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { select, Store } from '@ngrx/store';
 import { getFeedAction } from './store/actions/get-feed.actions';
@@ -20,6 +28,7 @@ import { LoadingComponent } from '../loading/loading.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { environment } from 'src/environments/environment';
 import queryString from 'query-string';
+import { TagListComponent } from '../tag-list/tag-list.component';
 
 @Component({
   selector: 'medium-feed',
@@ -30,11 +39,12 @@ import queryString from 'query-string';
     ErrorMessageComponent,
     LoadingComponent,
     PaginationComponent,
+    TagListComponent,
   ],
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
 })
-export class FeedComponent implements OnInit, OnDestroy {
+export class FeedComponent implements OnInit, OnDestroy, OnChanges {
   @Input() apiUrl: string;
 
   isLoading$: Observable<boolean>;
@@ -54,6 +64,16 @@ export class FeedComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeValues();
     this.initializeListeners();
+    console.log('initialized feed');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const isApiUrlChanged =
+      !changes['apiUrl'].firstChange &&
+      changes['apiUrl'].currentValue !== changes['apiUrl'].previousValue;
+    if (isApiUrlChanged) {
+      this.fetchFeed();
+    }
   }
 
   ngOnDestroy(): void {

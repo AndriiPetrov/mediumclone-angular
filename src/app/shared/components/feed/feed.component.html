@@ -21,7 +21,7 @@
     <a [routerLink]="['/articles', article.slug]" class="preview-link">
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>
-      HERE IS LIST OF TAGS
+      <medium-tag-list [tags]="article.tagList" />
     </a>
   </div>
   <medium-pagination
