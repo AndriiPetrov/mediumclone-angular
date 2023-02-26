@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLinkWithHref } from '@angular/router';
+import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CurrentUserInterface } from '../../types/currentUser.interface';
 import { select, Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ import {
 @Component({
   selector: 'medium-top-bar',
   standalone: true,
-  imports: [CommonModule, RouterLinkWithHref],
+  imports: [CommonModule, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
 })

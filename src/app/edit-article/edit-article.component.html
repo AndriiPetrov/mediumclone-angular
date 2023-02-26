@@ -1,0 +1,9 @@
+<medium-loading *ngIf="isLoading$ | async" />
+
+<medium-article-form
+  *ngIf="initialValues$ | async"
+  [initialValues]="initialValues$ | async"
+  [isSubmitting]="isSubmitting$ | async"
+  [errors]="backendErrors$ | async"
+  (articleSubmit)="onSubmit($event)"
+/>

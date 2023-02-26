@@ -23,6 +23,22 @@ import {
 } from './article/store/reducers/get-article.reducer';
 import { GetArticleEffects } from './article/store/effects/get-article.effects';
 import { DeleteArticleEffects } from './article/store/effects/delete.effects';
+import { CreateArticleEffects } from './create-article/store/effects/create-article.effects';
+import {
+  createArticleFeatureKey,
+  createArticleReducer,
+} from './create-article/store/reducers/create-article.reducer';
+import {
+  editArticleFeatureKey,
+  editArticleReducer,
+} from './edit-article/reducers/edit-article.reducer';
+import { UpdateArticleEffects } from './edit-article/effects/update-article.effects';
+import { GetArticleEffects as EditGetArticleEffects } from './edit-article/effects/get-article.effects';
+import { UpdateCurrentUserEffects } from './auth/store/effects/update-current-user.effects';
+import {
+  settingsFeatureKey,
+  settingsReducer,
+} from './settings/reducers/settings.reducer';
 
 export const APP_ROUTES: Routes = [
   {
@@ -43,6 +59,15 @@ export const APP_ROUTES: Routes = [
       import('./auth/components/login/login.component').then(
         (m) => m.LoginComponent
       ),
+  },
+  {
+    path: 'settings',
+    providers: [
+      provideEffects(UpdateCurrentUserEffects),
+      provideState(settingsFeatureKey, settingsReducer),
+    ],
+    loadChildren: () =>
+      import('./settings/settings.routes').then((m) => m.SETTINGS_ROUTES),
   },
   // {
   //   path: '',
@@ -83,8 +108,30 @@ export const APP_ROUTES: Routes = [
       import('./tag-feed/tag-feed.component').then((m) => m.TagFeedComponent),
   },
   {
+    path: 'articles/new',
+    providers: [
+      provideState(createArticleFeatureKey, createArticleReducer),
+      provideEffects(CreateArticleEffects),
+    ],
+    loadComponent: () =>
+      import('./create-article/create-article.component').then(
+        (m) => m.CreateArticleComponent
+      ),
+  },
+  {
     path: 'articles/:slug',
     loadComponent: () =>
       import('./article/article.component').then((m) => m.ArticleComponent),
+  },
+  {
+    path: 'articles/:slug/edit',
+    providers: [
+      provideState(editArticleFeatureKey, editArticleReducer),
+      provideEffects(UpdateArticleEffects, EditGetArticleEffects),
+    ],
+    loadComponent: () =>
+      import('./edit-article/edit-article.component').then(
+        (m) => m.EditArticleComponent
+      ),
   },
 ];
