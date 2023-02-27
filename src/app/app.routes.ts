@@ -39,6 +39,7 @@ import {
   settingsFeatureKey,
   settingsReducer,
 } from './settings/reducers/settings.reducer';
+import { LogoutEffects } from './auth/store/effects/logout.effects';
 
 export const APP_ROUTES: Routes = [
   {
@@ -63,7 +64,7 @@ export const APP_ROUTES: Routes = [
   {
     path: 'settings',
     providers: [
-      provideEffects(UpdateCurrentUserEffects),
+      provideEffects(UpdateCurrentUserEffects, LogoutEffects),
       provideState(settingsFeatureKey, settingsReducer),
     ],
     loadChildren: () =>
