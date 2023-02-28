@@ -40,21 +40,19 @@ import {
   settingsReducer,
 } from './settings/reducers/settings.reducer';
 import { LogoutEffects } from './auth/store/effects/logout.effects';
+import { AddToFavoritesEffects } from './shared/components/favorite-button/effects/add-to-favorites.effects';
 
 export const APP_ROUTES: Routes = [
   {
     path: 'register',
-    // component: RegisterComponent,
     providers: [provideEffects(RegisterEffects)],
     loadComponent: () =>
       import('./auth/components/register/register.component').then(
         (m) => m.RegisterComponent
       ),
-    // providers: [provideState(authFeatureKey, authReducer)],
   },
   {
     path: 'login',
-    // component: LoginComponent,
     providers: [provideEffects(LoginEffects)],
     loadComponent: () =>
       import('./auth/components/login/login.component').then(
@@ -87,7 +85,8 @@ export const APP_ROUTES: Routes = [
         GetFeedEffects,
         GetPopularTagsEffects,
         GetArticleEffects,
-        DeleteArticleEffects
+        DeleteArticleEffects,
+        AddToFavoritesEffects
       ),
     ],
     loadChildren: () =>

@@ -29,6 +29,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { environment } from 'src/environments/environment';
 import queryString from 'query-string';
 import { TagListComponent } from '../tag-list/tag-list.component';
+import { FavoriteButtonComponent } from '../favorite-button/favorite-button.component';
 
 @Component({
   selector: 'medium-feed',
@@ -40,6 +41,7 @@ import { TagListComponent } from '../tag-list/tag-list.component';
     LoadingComponent,
     PaginationComponent,
     TagListComponent,
+    FavoriteButtonComponent,
   ],
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
